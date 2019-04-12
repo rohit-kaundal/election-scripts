@@ -2,6 +2,15 @@
 # author: Rohit Kaundal
 
 import pandas
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+
+def initPyDrive():
+
+    gauth = GoogleAuth()
+    gauth.LocalWebserverAuth()
+
+    drive = GoogleDrive(gauth)
 
 
 def loadXl(filename):
@@ -9,8 +18,10 @@ def loadXl(filename):
     return xl
 
 def main():
-    adsFile = loadXl("ads.xlsx")
-    print(adsFile.keys())
+    # adsFile = loadXl("ads.xlsx")
+    # print(adsFile.keys())
+
+    initPyDrive()
 
 if __name__ == '__main__':
     main()
