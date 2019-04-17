@@ -8,16 +8,22 @@ from selenium import webdriver
 import time
 import urllib3
 import requests
-
+import json
 
 def fbSearchAds(srchTerm):
     token = 'EAAgzFO2gyWoBABwnTZA5MEvv0BcbXKX8ictg9yWgeJDcyTI3d8wOAgF0JBgviwGYZBPRSaddFMZATLyatLPbxYDB5WJ93m7XGDY58q0NLZAtjYhfDe2ZC2wyghFXyDBCcHZCCGIqLYj6HeZCf6GWP1v6XdhsS0gORECiDX5XnRDHava91llovjxPYNmf0yUr2VAHB9VZCZB3zeJDYnnaQEtW3'
-    graphUrl = f'https://graph.facebook.com/v3.2/ads_archive?search_terms={srchTerm}&ad_type=POLITICAL_AND_ISSUE_ADS&ad_reached_countries=[\'IN\']&fields=page_id,page_name,ad_creative_link_title,ad_creative_body,ad_snapshot_url,currency,funding_entity,spend,ad_delivery_start_time,ad_delivery_stop_time&access_token={token}'
+    graphUrl = f'https://graph.facebook.com/v3.2/ads_archive?search_terms={srchTerm}&ad_type=POLITICAL_AND_ISSUE_ADS&ad_reached_countries=[\'IN\']&fields=page_id,page_name,ad_creative_link_title,ad_creative_body,ad_snapshot_url,currency,funding_entity,spend,ad_delivery_start_time,ad_delivery_stop_time&access_token={token}&limit=1000'
 
     ads = requests.get(graphUrl)
 
     adsJson = ads.json()
-    print(adsJson)
+    # for ad in adsJson['data']:
+    #     print(f"Ad: {ad}")
+
+    df = pandas.DataFrame.from_dict(adsJson['data'])
+#    print(df.keys())
+    df.to_excel(f'{srchTerm}.xlsx')
+    print(f"[+] Dumped file : {srchTerm}.xlsx")
 
 def getScreenShot(url, scrName):
     DRIVER = r'C:\Program Files (x86)\Common Files\chromedriver_win32\chromedriver.exe'
@@ -60,7 +66,7 @@ def main():
     #initPyDrive()
     # getScreenShot('https://www.facebook.com/ads/archive/render_ad/?id=2324960561053902&access_token=EAAgzFO2gyWoBABrf9BmZBNwYLF4ov2v7LNZCDkBPZAKCp4kk1d0wknYsqFzuVuyOXLFhMBUDUbD6sQvFZBNZBfAmy7VlZClu4rUstNBClETyR9aRTq9KeezinC7uYr3LPADOMinZCdxvFjiyaj52PgQFbzPZADfWrDgRKpIZAO5avbE5xSZCPopyPu3KCKiUIAHFljKUPws9fF2GtYZAs4m39ZB9', 'test.png')
 
-    fbSearchAds('Sanjay Tandon')
+    fbSearchAds('Harmohan Dhawan')
 
 if __name__ == '__main__':
     main()
