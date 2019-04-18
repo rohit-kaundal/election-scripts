@@ -2,10 +2,11 @@
 # GUI code for the app
 
 import wx
+import noname as MainWindow
 
 def main():
     app = wx.App()
-    frame = wx.Frame(parent=None, title='TCC Rocks')
+    frame = MainWindow.MainDlg(parent=None)
     frame.Show()
     app.MainLoop()
 
