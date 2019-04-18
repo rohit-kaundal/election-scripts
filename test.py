@@ -50,15 +50,16 @@ def fbSearchAds(srchTerm):
         df.to_excel(writer, sheet_name='ADS')
         wbook = writer.book
         wsheet = writer.sheets['ADS']
-        wsheet.set_column('B:B', 80, None)
-        wsheet.set_column('C:C',80 , None)
+        text_format = wbook.add_format({'text_wrap': True})
+        wsheet.set_column('B:B', 60, text_format)
+        wsheet.set_column('C:C',60 , text_format)
         wsheet.set_column('D:D',20 , None)
         wsheet.set_column('E:E',25 , None)
         wsheet.set_column('F:F',25 , None)
         wsheet.set_column('G:G',25 , None)
         wsheet.set_column('H:H',25 , None)
         wsheet.set_column('I:I',25 , None)
-        wsheet.set_default_row(20)
+        # wsheet.set_default_row(20)
         writer.save()
         print(f"[+] Dumped file : {srchTerm}.xlsx")
     except Exception as e:
