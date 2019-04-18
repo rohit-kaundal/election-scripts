@@ -9,6 +9,7 @@ import time
 import urllib3
 import requests
 import json
+import datetime
 
 
 def fbSearchAds(srchTerm):
@@ -57,6 +58,7 @@ def fbSearchAds(srchTerm):
         wsheet.set_column('G:G',25 , None)
         wsheet.set_column('H:H',25 , None)
         wsheet.set_column('I:I',25 , None)
+        wsheet.set_default_row(20)
         writer.save()
         print(f"[+] Dumped file : {srchTerm}.xlsx")
     except Exception as e:
