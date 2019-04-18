@@ -37,7 +37,7 @@ def fbSearchAds(srchTerm):
                 'Page Name': row.get('page_name', 'Not Found'),
                 'AD Content': row.get('ad_creative_body', 'Not Found'),
                 'AD Link': row['ad_snapshot_url'],
-                'Spending': f"{row['currency']}{row['spend']['lower_bound']}/- to {row['currency']}{row['spend']['upper_bound']}/- ",
+                'Spending': f"{row['currency']} {row['spend']['lower_bound']}/- to {row['currency']} {row['spend']['upper_bound']}/- ",
                 'Ad Funding Entity': row.get('funding_entity', 'SELF'),
                 'Ad Start Time': row['ad_delivery_start_time'],
                 'Ad Stop Time': row.get('ad_delivery_stop_time', 'ACTIVE')
@@ -51,14 +51,19 @@ def fbSearchAds(srchTerm):
         wbook = writer.book
         wsheet = writer.sheets['ADS']
         text_format = wbook.add_format({'text_wrap': True})
-        wsheet.set_column('B:B', 60, text_format)
-        wsheet.set_column('C:C',60 , text_format)
-        wsheet.set_column('D:D',20 , None)
-        wsheet.set_column('E:E',25 , None)
-        wsheet.set_column('F:F',25 , None)
-        wsheet.set_column('G:G',25 , None)
-        wsheet.set_column('H:H',25 , None)
-        wsheet.set_column('I:I',25 , None)
+        new_format = wbook.add_format()
+        new_format.set_align('center')
+        new_format.set_align('vcenter')
+        new_format.set_text_wrap()
+
+        wsheet.set_column('B:B', 60, new_format)
+        wsheet.set_column('C:C',60 , new_format)
+        wsheet.set_column('D:D',20 , new_format)
+        wsheet.set_column('E:E',25 , new_format)
+        wsheet.set_column('F:F',25 , new_format)
+        wsheet.set_column('G:G',25 , new_format)
+        wsheet.set_column('H:H',25 , new_format)
+        wsheet.set_column('I:I',25 , new_format)
         # wsheet.set_default_row(20)
         writer.save()
         print(f"[+] Dumped file : {srchTerm}.xlsx")
