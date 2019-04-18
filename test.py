@@ -11,19 +11,28 @@ import requests
 import json
 
 def fbSearchAds(srchTerm):
-    token = 'EAAgzFO2gyWoBABwnTZA5MEvv0BcbXKX8ictg9yWgeJDcyTI3d8wOAgF0JBgviwGYZBPRSaddFMZATLyatLPbxYDB5WJ93m7XGDY58q0NLZAtjYhfDe2ZC2wyghFXyDBCcHZCCGIqLYj6HeZCf6GWP1v6XdhsS0gORECiDX5XnRDHava91llovjxPYNmf0yUr2VAHB9VZCZB3zeJDYnnaQEtW3'
-    graphUrl = f'https://graph.facebook.com/v3.2/ads_archive?search_terms={srchTerm}&ad_type=POLITICAL_AND_ISSUE_ADS&ad_reached_countries=[\'IN\']&fields=page_id,page_name,ad_creative_link_title,ad_creative_body,ad_snapshot_url,currency,funding_entity,spend,ad_delivery_start_time,ad_delivery_stop_time&access_token={token}&limit=1000'
+    token = 'EAAgzFO2gyWoBAFZA2jEplr9RkFBdb5rFwDsEMnWETYkHP5Oc2UFRtWf6nie4f7fZB0BenXlZBitUbol6GwXgcdz2WR8NGldli6ZB0mVBwpKdJcl3lTjB84XKfV6SZADZCeCZAFvaZCCyY4XFMdUZClvvCgQOLHoBMUqkzJMkaNwR4zqnGsy1OYP7ZCLko5PUJkk70oZByz8ALApQ1aMRdGS4gbK'
+    graphUrl = f'https://graph.facebook.com/v3.2/ads_archive?search_terms={srchTerm}&ad_active_status=ALL&ad_type=POLITICAL_AND_ISSUE_ADS&ad_reached_countries=[\'IN\']&fields=page_id,page_name,ad_creative_link_title,ad_creative_body,ad_snapshot_url,currency,funding_entity,spend,ad_delivery_start_time,ad_delivery_stop_time&access_token={token}&limit=1000'
 
-    ads = requests.get(graphUrl)
 
-    adsJson = ads.json()
-    # for ad in adsJson['data']:
-    #     print(f"Ad: {ad}")
+    print(f"[+] Getting ADS related to {srchTerm}...")
 
-    df = pandas.DataFrame.from_dict(adsJson['data'])
-#    print(df.keys())
-    df.to_excel(f'{srchTerm}.xlsx')
-    print(f"[+] Dumped file : {srchTerm}.xlsx")
+    try:
+
+        ads = requests.get(graphUrl)
+
+        adsJson = ads.json()
+        # for ad in adsJson['data']:
+        #     print(f"Ad: {ad}")
+
+
+
+        df = pandas.DataFrame.from_dict(adsJson['data'])
+    #    print(df.keys())
+        df.to_excel(f'{srchTerm}.xlsx')
+        print(f"[+] Dumped file : {srchTerm}.xlsx")
+    except Exception as e:
+        print(f"[!] Error occured: {e}")
 
 def getScreenShot(url, scrName):
     DRIVER = r'C:\Program Files (x86)\Common Files\chromedriver_win32\chromedriver.exe'
@@ -66,7 +75,21 @@ def main():
     #initPyDrive()
     # getScreenShot('https://www.facebook.com/ads/archive/render_ad/?id=2324960561053902&access_token=EAAgzFO2gyWoBABrf9BmZBNwYLF4ov2v7LNZCDkBPZAKCp4kk1d0wknYsqFzuVuyOXLFhMBUDUbD6sQvFZBNZBfAmy7VlZClu4rUstNBClETyR9aRTq9KeezinC7uYr3LPADOMinZCdxvFjiyaj52PgQFbzPZADfWrDgRKpIZAO5avbE5xSZCPopyPu3KCKiUIAHFljKUPws9fF2GtYZAs4m39ZB9', 'test.png')
 
-    fbSearchAds('Harmohan Dhawan')
+    fbSearchAds('Sanjay Tandon')
+    fbSearchAds('BJP Chandigarh')
+    fbSearchAds('Kirron Kher')
+    fbSearchAds('Satya Pal Jain')
+    fbSearchAds('Indian National Congress - Chandigarh')
+    fbSearchAds('Pawan Kumar Bansal')
+    fbSearchAds('NSUI Chandigarh.')
+    fbSearchAds('Chandigarh Youth Congress')
+    fbSearchAds('Navjot Sidhu')
+    fbSearchAds('Harmohan Dhawan, Former Union Minister, Govt. of India')
+    fbSearchAds('Aam Aadmi Party - Chandigarh')
+    fbSearchAds('Fans Of Harmohan Dhawan')
+    fbSearchAds('Avinash Singh Sharma')
+    fbSearchAds('Saraansh Tandon')
+
 
 if __name__ == '__main__':
     main()
