@@ -19,15 +19,29 @@ def fbSearchAds(srchTerm):
 
     try:
 
+        tmpJson = []
         ads = requests.get(graphUrl)
 
         adsJson = ads.json()
         # for ad in adsJson['data']:
         #     print(f"Ad: {ad}")
 
+        adsData = adsJson['data']
 
+        for row in adsData:
 
-        df = pandas.DataFrame.from_dict(adsJson['data'])
+            tmpJson.append({
+                'Page ID': row['page_id'],
+                'Page Name': row.get('page_name', 'Not Found'),
+                'AD Content': row.get('ad_creative_body', 'Not Found'),
+                'AD Link': row['ad_snapshot_url'],
+                'Spending': f"{row['currency']}{row['spend']['lower_bound']}/- to {row['currency']}{row['spend']['upper_bound']}/- ",
+                'Ad Funding Entity': row.get('funding_entity', 'SELF'),
+                'Ad Start Time': row['ad_delivery_start_time'],
+                'Ad Stop Time': row.get('ad_delivery_stop_time', 'ACTIVE')
+            })
+
+        df = pandas.DataFrame.from_dict(tmpJson)
     #    print(df.keys())
         df.to_excel(f'{srchTerm}.xlsx')
         print(f"[+] Dumped file : {srchTerm}.xlsx")
