@@ -10,8 +10,9 @@ import urllib3
 import requests
 import json
 
+
 def fbSearchAds(srchTerm):
-    token = 'EAAgzFO2gyWoBAFZA2jEplr9RkFBdb5rFwDsEMnWETYkHP5Oc2UFRtWf6nie4f7fZB0BenXlZBitUbol6GwXgcdz2WR8NGldli6ZB0mVBwpKdJcl3lTjB84XKfV6SZADZCeCZAFvaZCCyY4XFMdUZClvvCgQOLHoBMUqkzJMkaNwR4zqnGsy1OYP7ZCLko5PUJkk70oZByz8ALApQ1aMRdGS4gbK'
+    token = 'EAAgzFO2gyWoBANLZA8RROlZBUNLjXlm6LNsZA7ZAXUmJFIZAEZB9RNSwHnPSDchAq7ugIn42ZAhnlfoN14GpWKDdnCVTnjSXsQ2RZBWgL3bhY8f6zAzpFLfjfSdMaW3qXI1ZB3ZBcd0byZCYG4pdieHmjZC7XkTwgPYIvSmApvOaUlIUxcLvN2E1t8k18bHCkZAYo0SIxuQQFN6pedynZB9ZAZArVu7P'
     graphUrl = f'https://graph.facebook.com/v3.2/ads_archive?search_terms={srchTerm}&ad_active_status=ALL&ad_type=POLITICAL_AND_ISSUE_ADS&ad_reached_countries=[\'IN\']&fields=page_id,page_name,ad_creative_link_title,ad_creative_body,ad_snapshot_url,currency,funding_entity,spend,ad_delivery_start_time,ad_delivery_stop_time&access_token={token}&limit=1000'
 
 
@@ -41,9 +42,22 @@ def fbSearchAds(srchTerm):
                 'Ad Stop Time': row.get('ad_delivery_stop_time', 'ACTIVE')
             })
 
+
         df = pandas.DataFrame.from_dict(tmpJson)
-    #    print(df.keys())
-        df.to_excel(f'{srchTerm}.xlsx')
+
+        writer = pandas.ExcelWriter(f"{srchTerm}.xlsx", engine='xlsxwriter', options={'strings_to_urls': False})
+        df.to_excel(writer, sheet_name='ADS')
+        wbook = writer.book
+        wsheet = writer.sheets['ADS']
+        wsheet.set_column('B:B', 80, None)
+        wsheet.set_column('C:C',80 , None)
+        wsheet.set_column('D:D',20 , None)
+        wsheet.set_column('E:E',25 , None)
+        wsheet.set_column('F:F',25 , None)
+        wsheet.set_column('G:G',25 , None)
+        wsheet.set_column('H:H',25 , None)
+        wsheet.set_column('I:I',25 , None)
+        writer.save()
         print(f"[+] Dumped file : {srchTerm}.xlsx")
     except Exception as e:
         print(f"[!] Error occured: {e}")
