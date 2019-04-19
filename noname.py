@@ -10,6 +10,7 @@
 import wx
 import wx.xrc
 import time
+import datetime
 ###########################################################################
 ## Class MainDlg
 ###########################################################################
@@ -17,7 +18,7 @@ import time
 class MainDlg ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"MCMC ADS Fetcher", pos = wx.DefaultPosition, size = wx.Size( 432,344 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"MCMC ADS Fetcher Tool v1.0", pos = wx.DefaultPosition, size = wx.Size( 432,344 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -35,9 +36,13 @@ class MainDlg ( wx.Dialog ):
 		
 		self.txtOutput = wx.TextCtrl( self, wx.ID_ANY, u"Progress...", wx.DefaultPosition, wx.Size( -1,400 ), wx.TE_MULTILINE )
 		self.txtOutput.SetEditable(False)
+		self.txtOutput.Enable(True)
+
 		
 		bSizer1.Add( self.txtOutput, 1, wx.ALL|wx.EXPAND, 5 )
-		
+		self.lblCopyRights = wx.StaticText( self, wx.ID_ANY, u"Copyrights (C) 2019 Rohit Kaundal (Chandigarh Police). All rights reserved.", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lblCopyRights.Wrap( -1 )
+		bSizer1.Add( self.lblCopyRights, 0, wx.ALL, 5 )
 		
 		self.SetSizer( bSizer1 )
 		self.Layout()
@@ -58,11 +63,16 @@ class MainDlg ( wx.Dialog ):
 	
 	def onDownloadClick( self, event ):
 		self.mbtnGetAds.Disable()
-		self.txtOutput.AppendText("\n[+] Downloading ADS initiated...\n")
+		self.txtOutput.AppendText(f"\n[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Downloading ADS initiated...\n")
+		self.txtOutput.AppendText(f"[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ")
 		for i in range(0,10):
 			self.txtOutput.AppendText(f"{i}%...")
 			time.sleep(1)
-		self.txtOutput.AppendText("\n[+]Downloads Completed !\n")
-		wx.MessageBox("ADS Downloading Complete!")
+		self.txtOutput.AppendText(f"\n[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Downloads Completed !\n")
+		wx.MessageBox(f"ADS Downloading Complete!")
+		strLog = self.txtOutput.GetValue()
+		with open('MCMCAds.log','w') as f:
+			f.write(strLog)
+
 		self.mbtnGetAds.Enable()
 
