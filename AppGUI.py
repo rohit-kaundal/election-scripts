@@ -1,8 +1,9 @@
 # author : Rohit Kaundal
 # GUI code for the app
+# Pure App and GUI init not to be touched with business logic
 
 import wx
-import noname as MainWindow
+import frmMain as MainWindow
 
 def main():
     app = wx.App()

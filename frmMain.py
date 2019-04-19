@@ -18,7 +18,7 @@ import datetime
 class MainDlg ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"MCMC ADS Fetcher Tool v1.0", pos = wx.DefaultPosition, size = wx.Size( 432,344 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"MCMC ADS Fetcher Tool v1.0 - Election Comission Chandigarh", pos = wx.DefaultPosition, size = wx.Size( 432,344 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -40,7 +40,7 @@ class MainDlg ( wx.Dialog ):
 
 		
 		bSizer1.Add( self.txtOutput, 1, wx.ALL|wx.EXPAND, 5 )
-		self.lblCopyRights = wx.StaticText( self, wx.ID_ANY, u"Copyrights (C) 2019 Rohit Kaundal (Chandigarh Police). All rights reserved.", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lblCopyRights = wx.StaticText( self, wx.ID_ANY, u"Copyrights (C) 2019 Rohit Kaundal (MCMC). All rights reserved.", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.lblCopyRights.Wrap( -1 )
 		bSizer1.Add( self.lblCopyRights, 0, wx.ALL, 5 )
 		
@@ -64,15 +64,30 @@ class MainDlg ( wx.Dialog ):
 	def onDownloadClick( self, event ):
 		self.mbtnGetAds.Disable()
 		self.txtOutput.AppendText(f"\n[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Downloading ADS initiated...\n")
-		self.txtOutput.AppendText(f"[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ")
-		for i in range(0,10):
-			self.txtOutput.AppendText(f"{i}%...")
-			time.sleep(1)
-		self.txtOutput.AppendText(f"\n[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Downloads Completed !\n")
-		wx.MessageBox(f"ADS Downloading Complete!")
+		self.startDownloading()
 		strLog = self.txtOutput.GetValue()
 		with open('MCMCAds.log','w') as f:
 			f.write(strLog)
 
 		self.mbtnGetAds.Enable()
+
+	def startDownloading(self):
+		import test as bg
+		# fbSearchAds('Sanjay Tandon')
+		# fbSearchAds('BJP Chandigarh')
+		# fbSearchAds('Kirron Kher')
+		# fbSearchAds('Satya Pal Jain')
+		# fbSearchAds('Indian National Congress - Chandigarh')
+		# fbSearchAds('Pawan Kumar Bansal')
+		# fbSearchAds('NSUI Chandigarh.')
+		# fbSearchAds('Chandigarh Youth Congress')
+		# fbSearchAds('Navjot Sidhu')
+		# fbSearchAds('Harmohan Dhawan, Former Union Minister, Govt. of India')
+		# fbSearchAds('Aam Aadmi Party - Chandigarh')
+		# fbSearchAds('Fans Of Harmohan Dhawan')
+		# fbSearchAds('Avinash Singh Sharma')
+		# fbSearchAds('Saraansh Tandon')
+		for strProgress in bg.progressBarTest():
+			self.txtOutput.AppendText(f"\n[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {strProgress}\n")
+
 
