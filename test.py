@@ -141,7 +141,7 @@ def main():
     fbSearchAds('Aam Aadmi Party - Chandigarh')
     fbSearchAds('Fans Of Harmohan Dhawan')
     fbSearchAds('Avinash Singh Sharma')
-    fbSearchAds('Saraansh Tandon')
+    fbSearchAds('Devi Sirohi')
 
     ### Yield Test
     #
