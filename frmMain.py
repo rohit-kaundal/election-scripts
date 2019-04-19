@@ -78,7 +78,7 @@ class MainDlg(wx.Dialog):
 			f"\n[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Downloading ADS initiated...\n")
 		self.startDownloading()
 		strLog = self.txtOutput.GetValue()
-		with open('MCMCAds.log', 'w') as f:
+		with open('MCMCAds.log', 'a') as f:
 			f.write(strLog)
 
 		self.mbtnGetAds.Enable()
@@ -142,9 +142,9 @@ class MainDlg(wx.Dialog):
 			self.txtOutput.AppendText(
 			f"\n[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {strProgress}\n")
 
-		#
+
 		wx.MessageBox("Download Complete !")
 		strCurrentPath = os.path.abspath(".\ADS Output")
-		subprocess.Popen(f'explorer /select,"{strCurrentPath}"')
+		subprocess.Popen(f'explorer "{strCurrentPath}"')
 		self.mtxtToken.SetFocus()
 
