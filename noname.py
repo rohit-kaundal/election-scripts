@@ -9,7 +9,7 @@
 
 import wx
 import wx.xrc
-
+import time
 ###########################################################################
 ## Class MainDlg
 ###########################################################################
@@ -54,9 +54,13 @@ class MainDlg ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def MainDlgOnClose( self, event ):
-		event.Skip()
+		self.Destroy()
 	
 	def onDownloadClick( self, event ):
-		event.Skip()
+		self.txtOutput.AppendText("\n[+] Downloading ADS initiated...\n")
+		for i in range(0,10):
+			self.txtOutput.AppendText(f"{i}%...")
+			time.sleep(1)
+		self.txtOutput.AppendText("\n[+]Downloads Completed !\n")
 	
 
