@@ -34,7 +34,7 @@ class MainDlg ( wx.Dialog ):
 		bSizer1.Add( self.mbtnGetAds, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
 		self.txtOutput = wx.TextCtrl( self, wx.ID_ANY, u"Progress...", wx.DefaultPosition, wx.Size( -1,400 ), wx.TE_MULTILINE )
-		self.txtOutput.Enable( False )
+		self.txtOutput.SetEditable(False)
 		
 		bSizer1.Add( self.txtOutput, 1, wx.ALL|wx.EXPAND, 5 )
 		
@@ -57,10 +57,12 @@ class MainDlg ( wx.Dialog ):
 		self.Destroy()
 	
 	def onDownloadClick( self, event ):
+		self.mbtnGetAds.Disable()
 		self.txtOutput.AppendText("\n[+] Downloading ADS initiated...\n")
 		for i in range(0,10):
 			self.txtOutput.AppendText(f"{i}%...")
 			time.sleep(1)
 		self.txtOutput.AppendText("\n[+]Downloads Completed !\n")
-	
+		wx.MessageBox("ADS Downloading Complete!")
+		self.mbtnGetAds.Enable()
 
