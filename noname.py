@@ -17,7 +17,7 @@ import wx.xrc
 class MainDlg ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"MCMC ADS Fetcher", pos = wx.DefaultPosition, size = wx.Size( 432,153 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"MCMC ADS Fetcher", pos = wx.DefaultPosition, size = wx.Size( 432,344 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -33,6 +33,11 @@ class MainDlg ( wx.Dialog ):
 		self.mbtnGetAds = wx.Button( self, wx.ID_ANY, u"Download ADS", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer1.Add( self.mbtnGetAds, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
+		self.txtOutput = wx.TextCtrl( self, wx.ID_ANY, u"Progress...", wx.DefaultPosition, wx.Size( -1,400 ), wx.TE_MULTILINE )
+		self.txtOutput.Enable( False )
+		
+		bSizer1.Add( self.txtOutput, 1, wx.ALL|wx.EXPAND, 5 )
+		
 		
 		self.SetSizer( bSizer1 )
 		self.Layout()
@@ -40,6 +45,7 @@ class MainDlg ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_CLOSE, self.MainDlgOnClose )
 		self.mbtnGetAds.Bind( wx.EVT_BUTTON, self.onDownloadClick )
 	
 	def __del__( self ):
@@ -47,6 +53,9 @@ class MainDlg ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def MainDlgOnClose( self, event ):
+		event.Skip()
+	
 	def onDownloadClick( self, event ):
 		event.Skip()
 	
