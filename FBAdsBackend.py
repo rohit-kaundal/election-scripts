@@ -67,6 +67,7 @@ def fbSearchAds(srchTerm, strToken):
 		new_format.set_align('vcenter')
 		new_format.set_text_wrap()
 
+		wsheet.set_column('A:A', None, None, {'hidden': True})
 		wsheet.set_column('B:B', 60, new_format)
 		wsheet.set_column('C:C', 60, new_format)
 		wsheet.set_column('D:D', 20, new_format)
@@ -79,7 +80,9 @@ def fbSearchAds(srchTerm, strToken):
 		wsheet.set_column('K:K', 25, new_format)
 		wsheet.set_column('L:L', 25, new_format)
 
-		# wsheet.set_default_row(20)
+
+		wsheet.set_default_row(hide_unused_rows=True)
+
 		writer.save()
 		print(f"[+] Dumped file : {srchTerm}.xlsx")
 		yield f"Dumped file : {srchTerm}.xlsx"
