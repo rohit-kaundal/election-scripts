@@ -11,7 +11,7 @@ import wx
 import wx.xrc
 import time
 import datetime
-import test as bg
+import FBAdsBackend as bg
 import os
 import subprocess
 
