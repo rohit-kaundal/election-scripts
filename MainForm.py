@@ -37,7 +37,7 @@ class MainDlg(wx.Dialog):
 		bSizer1.Add(self.mlblToken, 0, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_HORIZONTAL, 5)
 
 		self.mtxtToken = wx.TextCtrl(self, wx.ID_ANY,
-									 u"EAAgzFO2gyWoBANLZA8RROlZBUNLjXlm6LNsZA7ZAXUmJFIZAEZB9RNSwHnPSDchAq7ugIn42ZAhnlfoN14GpWKDdnCVTnjSXsQ2RZBWgL3bhY8f6zAzpFLfjfSdMaW3qXI1ZB3ZBcd0byZCYG4pdieHmjZC7XkTwgPYIvSmApvOaUlIUxcLvN2E1t8k18bHCkZAYo0SIxuQQFN6pedynZB9ZAZArVu7P",
+									 u"EAAgzFO2gyWoBAHhjKBrOdZB4j38ZCghCISnhH2zQNIQPjuZClVZAwrwTm6CIgZAloPZBjJcMhC6IKELtBoZC89zuvC7zubrJIO1x8820A2kyf3FeNRYESWsx8daG5XZAmUZCiVwkYX3OKI2N1u2mCIZCzg3vhdna1OLmCEr2xTYNnCvj4rBLSQrOzc",
 									 wx.DefaultPosition, wx.DefaultSize, 0)
 		bSizer1.Add(self.mtxtToken, 0, wx.ALL | wx.EXPAND | wx.ALIGN_CENTER_HORIZONTAL, 5)
 
