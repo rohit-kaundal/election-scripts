@@ -9,7 +9,11 @@ import time
 import requests
 import datefinder
 import datetime
+import os
 
+
+def makeDir(strDirName):
+	os.makedirs(strDirName, exist_ok=True)
 
 def getStringDate(strDate):
 	strTmp = strDate
@@ -156,7 +160,7 @@ def main():
 
 	# initPyDrive()
 	# getScreenShot('https://www.facebook.com/ads/archive/render_ad/?id=2324960561053902&access_token=EAAgzFO2gyWoBABrf9BmZBNwYLF4ov2v7LNZCDkBPZAKCp4kk1d0wknYsqFzuVuyOXLFhMBUDUbD6sQvFZBNZBfAmy7VlZClu4rUstNBClETyR9aRTq9KeezinC7uYr3LPADOMinZCdxvFjiyaj52PgQFbzPZADfWrDgRKpIZAO5avbE5xSZCPopyPu3KCKiUIAHFljKUPws9fF2GtYZAs4m39ZB9', 'test.png')
-
+	makeDir("./ADS Output")
 	fbSearchAds('Sanjay Tandon')
 	fbSearchAds('BJP Chandigarh')
 	fbSearchAds('Kirron Kher')

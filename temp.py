@@ -4,20 +4,14 @@
 
 import datefinder
 import datetime
+import os
 
-def getStringDate(strDate):
-	strTmp = strDate
-	dateExtract = list(datefinder.find_dates(strTmp))
-	#print(dateExtract[0])
-	try:
-		resultDate = datetime.datetime.strftime(dateExtract[0], '%d %B %Y')
-		return resultDate
-	except:
-		return ""
+def makeDir(strDirName):
+	os.makedirs(strDirName, exist_ok=True)
 
 def main():
 
-	print(getStringDate("2019-04-23T10:44:21+0000"))
+	makeDir("./RohitTest")
 
 if __name__ == '__main__':
 	main()
