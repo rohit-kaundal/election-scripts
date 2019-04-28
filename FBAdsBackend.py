@@ -6,10 +6,20 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from selenium import webdriver
 import time
-import urllib3
 import requests
-import json
+import datefinder
 import datetime
+
+
+def getStringDate(strDate):
+	strTmp = strDate
+	dateExtract = list(datefinder.find_dates(strTmp))
+	#print(dateExtract[0])
+	try:
+		resultDate = datetime.datetime.strftime(dateExtract[0], '%d %B %Y')
+		return resultDate
+	except:
+		return "ACTIVE"
 
 
 def fbSearchAds(srchTerm, strToken):
@@ -56,6 +66,9 @@ def fbSearchAds(srchTerm, strToken):
 
 		df = df.sort_values(by=['Ad Start Time'])
 		df.reindex()
+		df['Ad Start Time'] = df['Ad Start Time'].apply(lambda strDate: getStringDate(strDate))
+		df['Ad Stop Time'] = df['Ad Stop Time'].apply(lambda strDate: getStringDate(strDate))
+
 		writer = pandas.ExcelWriter(f"./ADS Output/{srchTerm}.xlsx", engine='xlsxwriter',
 									options={'strings_to_urls': False})
 		df.to_excel(writer, sheet_name='ADS')
