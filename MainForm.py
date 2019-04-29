@@ -84,6 +84,8 @@ class MainDlg(wx.Dialog):
 		self.mbtnGetAds.Enable()
 
 	def startDownloading(self):
+		bg.makeDir("./ADS Output")
+
 		mToken = self.mtxtToken.GetValue()
 
 		for strProgress in bg.fbSearchAds('Sanjay Tandon', mToken):
