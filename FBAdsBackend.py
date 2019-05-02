@@ -26,13 +26,13 @@ def getStringDate(strDate):
 		return "ACTIVE"
 
 
-def fbSearchAds(srchTerm, strToken):
+def fbSearchAds(pageName, strToken, pageID):
 	# token = 'EAAgzFO2gyWoBABXxICh9hHZAZCmud0g7PSZCYVN9sxtqDSMHzaAGXOWR6Js1niZCyemfK7EdwG8E7aU9Ey2UKZAVyvMLnbjrHwnF8o78iCXK3yVwgCfDc5qUKfZBVnACdUS1VQV7sKD1o8eQjxPRfp011m20qLQf4gGZAPUI1dCfL46NUAonFe8KXXdScSQgaMKjQa61YXneKokOnz6LTjr'
 	token = strToken
-	graphUrl = f'https://graph.facebook.com/v3.2/ads_archive?search_terms={srchTerm}&ad_active_status=ALL&ad_type=POLITICAL_AND_ISSUE_ADS&ad_reached_countries=[\'IN\']&fields=page_id,page_name,ad_creative_link_title,ad_creative_body,ad_snapshot_url,currency,funding_entity,spend,ad_delivery_start_time,ad_delivery_stop_time,region_distribution&access_token={token}&limit=1000'
+	graphUrl = f'https://graph.facebook.com/v3.2/ads_archive?search_page_ids={pageID}&ad_active_status=ALL&ad_type=POLITICAL_AND_ISSUE_ADS&ad_reached_countries=[\'IN\']&fields=page_id,page_name,ad_creative_link_title,ad_creative_body,ad_snapshot_url,currency,funding_entity,spend,ad_delivery_start_time,ad_delivery_stop_time,region_distribution&access_token={token}&limit=1000'
 
-	print(f"[+] Getting ADS related to {srchTerm}...")
-	yield f"Getting ADS related to {srchTerm}..."
+	print(f"[+] Getting ADS related to {pageName}...")
+	yield f"Getting ADS related to {pageName}..."
 
 	try:
 
@@ -73,7 +73,7 @@ def fbSearchAds(srchTerm, strToken):
 		df['Ad Start Time'] = df['Ad Start Time'].apply(lambda strDate: getStringDate(strDate))
 		df['Ad Stop Time'] = df['Ad Stop Time'].apply(lambda strDate: getStringDate(strDate))
 
-		writer = pandas.ExcelWriter(f"./ADS Output/{srchTerm}.xlsx", engine='xlsxwriter',
+		writer = pandas.ExcelWriter(f"./ADS Output/{pageName}.xlsx", engine='xlsxwriter',
 									options={'strings_to_urls': False})
 		df.to_excel(writer, sheet_name='ADS')
 		wbook = writer.book
@@ -101,8 +101,8 @@ def fbSearchAds(srchTerm, strToken):
 		wsheet.set_default_row(hide_unused_rows=True)
 
 		writer.save()
-		print(f"[+] Dumped file : {srchTerm}.xlsx")
-		yield f"Dumped file : {srchTerm}.xlsx"
+		print(f"[+] Dumped file : {pageName}.xlsx")
+		yield f"Dumped file : {pageName}.xlsx"
 	except Exception as e:
 		print(f"[!] Error occured: {e}")
 		yield f"[!] Error occured: {e}"
@@ -160,26 +160,26 @@ def main():
 
 	# initPyDrive()
 	# getScreenShot('https://www.facebook.com/ads/archive/render_ad/?id=2324960561053902&access_token=EAAgzFO2gyWoBABrf9BmZBNwYLF4ov2v7LNZCDkBPZAKCp4kk1d0wknYsqFzuVuyOXLFhMBUDUbD6sQvFZBNZBfAmy7VlZClu4rUstNBClETyR9aRTq9KeezinC7uYr3LPADOMinZCdxvFjiyaj52PgQFbzPZADfWrDgRKpIZAO5avbE5xSZCPopyPu3KCKiUIAHFljKUPws9fF2GtYZAs4m39ZB9', 'test.png')
-	fbSearchAds('Sanjay Tandon')
-	fbSearchAds('BJP Chandigarh')
-	fbSearchAds('Kirron Kher')
-	fbSearchAds('Satya Pal Jain')
-	fbSearchAds('Indian National Congress - Chandigarh')
-	fbSearchAds('Pawan Kumar Bansal')
-	fbSearchAds('NSUI Chandigarh.')
-	fbSearchAds('Chandigarh Youth Congress')
-	fbSearchAds('Navjot Sidhu')
-	fbSearchAds('Harmohan Dhawan, Former Union Minister, Govt. of India')
-	fbSearchAds('Aam Aadmi Party - Chandigarh')
-	fbSearchAds('Fans Of Harmohan Dhawan')
-	fbSearchAds('Avinash Singh Sharma')
-	fbSearchAds('Devi Sirohi')
+	# fbSearchAds('Sanjay Tandon')
+	# fbSearchAds('BJP Chandigarh')
+	# fbSearchAds('Kirron Kher')
+	# fbSearchAds('Satya Pal Jain')
+	# fbSearchAds('Indian National Congress - Chandigarh')
+	# fbSearchAds('Pawan Kumar Bansal')
+	# fbSearchAds('NSUI Chandigarh.')
+	# fbSearchAds('Chandigarh Youth Congress')
+	# fbSearchAds('Navjot Sidhu')
+	# fbSearchAds('Harmohan Dhawan, Former Union Minister, Govt. of India')
+	# fbSearchAds('Aam Aadmi Party - Chandigarh')
+	# fbSearchAds('Fans Of Harmohan Dhawan')
+	# fbSearchAds('Avinash Singh Sharma')
+	# fbSearchAds('Devi Sirohi')
 
 	### Yield Test
 	#
 	# for progress in progressBarTest():
 	#     print(f"[+]{progress}")
-
+	pass
 
 if __name__ == '__main__':
 	main()
